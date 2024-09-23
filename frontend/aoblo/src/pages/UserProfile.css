@@ -1,0 +1,43 @@
+/* src/pages/UserProfile.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .profile-header p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .profile-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .profile-actions .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .comment-username {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #007bff; /* Giữ nguyên màu xanh dương */
+  }
+  
+  .comment-username:hover {
+    text-decoration: underline; /* Gạch chân khi hover nếu cần */
+    color: #0056b3; /* Giữ nguyên màu xanh dương đậm khi hover */
+  }
+  
+  

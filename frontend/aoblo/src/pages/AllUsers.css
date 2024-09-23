@@ -1,0 +1,17 @@
+/* src/pages/AllUsers.css */
+.user-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .user-item h5 {
+    margin: 0 0 5px 0;
+  }
+  
+  .user-item p {
+    margin: 0;
+  }
+  

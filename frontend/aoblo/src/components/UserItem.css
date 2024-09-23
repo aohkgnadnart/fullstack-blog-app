@@ -1,0 +1,10 @@
+/* src/components/UserItem.css */
+.user-item-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .user-item-link:hover .user-item {
+    background-color: #f0f0f0;
+  }
+  

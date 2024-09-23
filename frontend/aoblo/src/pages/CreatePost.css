@@ -1,0 +1,63 @@
+.tags-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.tag-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tag-item:hover {
+  background: #f0f0f0;
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag-badge {
+  background: #d3d3d3;
+  color: black;
+  padding: 3px 7px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.tag-badge .close {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1rem;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin: 5px 0;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}

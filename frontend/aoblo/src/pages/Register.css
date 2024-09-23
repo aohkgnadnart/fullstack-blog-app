@@ -1,0 +1,17 @@
+/* src/pages/Register.css */
+.register-container {
+    margin-top: 20px;
+  }
+  
+  .register-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .password-wrapper {
+    position: relative;
+  }
+  
+  .input-group-text {
+    cursor: pointer;
+  }
+  

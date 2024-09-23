@@ -1,0 +1,216 @@
+/* src/pages/PostDetail.css */
+.post-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.post-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: left; /* Căn lề trái */
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: left; /* Căn lề trái */
+  margin-bottom: 10px;
+}
+
+.post-stats {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: left; /* Căn lề trái */
+}
+
+.post-tags {
+  /* margin-bottom: 20px; */
+  text-align: left; /* Căn lề trái */
+}
+
+.post-tags .badge {
+  font-size: 0.9rem;
+  margin-right: 5px;
+}
+
+.post-content {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: left; /* Căn lề trái */
+  line-height: 1.6;
+}
+
+.post-body pre {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.post-actions button {
+  font-size: 1rem;
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+.post-actions button.like {
+  background-color: #c3e6cb; /* Màu xanh lá nhạt */
+}
+
+.post-actions button.like.active {
+  background-color: #28a745; /* Màu xanh lá đậm khi đã like */
+}
+
+.post-actions button.dislike {
+  background-color: #f5c6cb; /* Màu đỏ nhạt */
+}
+
+.post-actions button.dislike.active {
+  background-color: #dc3545; /* Màu đỏ đậm khi đã dislike */
+}
+
+.comments-section {
+  margin-top: 40px;
+}
+
+.comments-section h4 {
+  margin-bottom: 10px;
+}
+
+.comment {
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Bo tròn các góc */
+}
+
+.comment-header {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.comment-username {
+  font-weight: bold;
+}
+
+.comment-content {
+  margin-bottom: 5px;
+}
+
+.comment-actions {
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.comment-actions button {
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  color: white; /* Màu chữ trắng */
+  border: none; /* Bỏ đường viền */
+  border-radius: 4px; /* Bo tròn các góc nút */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+  min-width: 35px; /* Đảm bảo các nút có cùng kích thước */
+  text-align: center;
+}
+
+.comment-actions button.like {
+  background-color: #c3e6cb; /* Màu xanh lá nhạt */
+}
+
+.comment-actions button.like.active {
+  background-color: #28a745; /* Màu xanh lá đậm khi đã like */
+}
+
+.comment-actions button.dislike {
+  background-color: #f5c6cb; /* Màu đỏ nhạt */
+}
+
+.comment-actions button.dislike.active {
+  background-color: #dc3545; /* Màu đỏ đậm khi đã dislike */
+}
+
+.comment-actions button.reply {
+  font-size: 0.8rem;
+  padding: 0; /* Bỏ padding */
+  background: none; /* Bỏ nền */
+  color: #007bff; /* Màu chữ xanh dương */
+  border: none; /* Bỏ đường viền */
+  cursor: pointer;
+  transition: color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+.comment-actions button.reply:hover {
+  color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+}
+
+.add-comment textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.add-comment button {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px; /* Thêm border-radius để làm nổi bật khối nội dung */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo shadow để nhìn rõ khối nội dung hơn */
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.post-actions button.delete {
+  background-color: #dc3545; /* Màu đỏ */
+}
+
+.post-actions button.delete:hover {
+  background-color: #c82333; /* Màu đỏ đậm khi hover */
+}
+
+.comment-actions .delete-comment {
+  /* Cấu hình CSS tương tự như reply */
+  font-size: 0.8rem;
+  padding: 0;
+  background: none;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}

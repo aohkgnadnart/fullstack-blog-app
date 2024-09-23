@@ -1,0 +1,48 @@
+/* src/pages/ProfilePage.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  margin-bottom: 10px;
+}
+
+.profile-header p {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.profile-actions {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-actions .btn {
+  margin: 0 5px;
+}
+
+.profile-navigation {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.profile-navigation .btn {
+  flex: 1;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.user-list-container {
+  margin-top: 20px;
+}

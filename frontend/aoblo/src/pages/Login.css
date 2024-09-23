@@ -1,0 +1,14 @@
+/* src/pages/Login.css */
+.login-container {
+    margin-top: 20px;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  

@@ -1,0 +1,15 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button, .pagination .page-input {
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+
+.page-input {
+  width: 60px;
+}

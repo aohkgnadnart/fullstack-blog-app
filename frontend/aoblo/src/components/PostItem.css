@@ -1,0 +1,66 @@
+/* src/components/PostItem.css */
+.post-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.post-header {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-author {
+  text-align: left; /* Căn lề trái */
+}
+
+.post-updated {
+  text-align: center;
+  flex: 1;
+}
+
+.post-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  text-align: left; /* Căn lề trái */
+}
+
+.post-title a {
+  text-decoration: none;
+  color: #000;
+}
+
+.post-title a:hover {
+  text-decoration: underline;
+}
+
+.post-tags {
+  margin: 10px 0;
+  text-align: left; /* Căn lề trái */
+}
+
+.post-footer {
+  display: flex;
+  justify-content: flex-start; /* Căn lề trái */
+  gap: 10px; /* Khoảng cách giữa các mục */
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+.post-author-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post-author-link:hover {
+  color: #0056b3;
+  text-decoration: none; /* Hoặc bỏ underline nếu bạn không muốn */
+}
