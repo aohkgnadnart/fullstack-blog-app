@@ -26,18 +26,14 @@ import java.util.stream.Collectors;
 				description = "Spring boot blog app rest APIs documentation",
 				version = "v1.0",
 				contact = @Contact(
-						name = "aohk",
+						name = "aohkgnadnart",
 						email = "aohkgnadnart@gmail.com",
-						url = "https://aohkgnadnart.github.io/"
-				),
-				license = @License(
-						name = "Apache 2.0",
-						url = "https://www.javaguides.net/license"
+						url = "http://13.236.91.56:3000"
 				)
 		),
 		externalDocs = @ExternalDocumentation(
 				description = "Spring boot blog app documentation",
-				url = "https://github.com/aohkgnadnart"
+				url = "http://13.236.91.56:3000"
 		)
 )
 public class SpringbootBlogRestApiApplication {
