@@ -1,8 +1,9 @@
 // src/apis/userApi.js
 import axios from 'axios';
+import config from '../config';
 
 export const fetchUserByUsernameOrEmail = (usernameOrEmail, token) => {
-  return axios.get(`http://localhost:8080/api/users`, {
+  return axios.get(`${config.API_URL}/users`, {
     params: { usernameOrEmail },
     headers: {
       Authorization: `Bearer ${token}`
@@ -11,7 +12,7 @@ export const fetchUserByUsernameOrEmail = (usernameOrEmail, token) => {
 };
 
 export const fetchTop5UsersByUsername = (username) => {
-  return axios.get(`http://localhost:8080/api/users/top5`, {
+  return axios.get(`${config.API_URL}/users/top5`, {
     params: {
       username
     }
@@ -19,11 +20,11 @@ export const fetchTop5UsersByUsername = (username) => {
 };
 
 export const fetchUserById = (id) => {
-  return axios.get(`http://localhost:8080/api/users/${id}`);
+  return axios.get(`${config.API_URL}/users/${id}`);
 };
 
 export const fetchMe = (token) => {
-  return axios.get('http://localhost:8080/api/users/me', {
+  return axios.get(`${config.API_URL}/users/me`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -32,7 +33,7 @@ export const fetchMe = (token) => {
 
 export const changePassword = (data) => {
   const token = localStorage.getItem('accessToken');
-  return axios.put('http://localhost:8080/api/users/change-password', data, {
+  return axios.put(`${config.API_URL}/users/change-password`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -41,7 +42,7 @@ export const changePassword = (data) => {
 
 export const checkIfFollowing = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/users/is-following/${userId}`, {
+  return axios.get(`${config.API_URL}/users/is-following/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -50,7 +51,7 @@ export const checkIfFollowing = (userId) => {
 
 export const followUser = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/users/follow/${userId}`, null, {
+  return axios.post(`${config.API_URL}/users/follow/${userId}`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -59,7 +60,7 @@ export const followUser = (userId) => {
 
 export const unfollowUser = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete(`http://localhost:8080/api/users/unfollow/${userId}`, {
+  return axios.delete(`${config.API_URL}/users/unfollow/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -68,7 +69,7 @@ export const unfollowUser = (userId) => {
 
 export const checkIfFriend = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/users/is-friend/${userId}`, {
+  return axios.get(`${config.API_URL}/users/is-friend/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -77,7 +78,7 @@ export const checkIfFriend = (userId) => {
 
 export const sendFriendRequest = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/users/send-friend-request/${userId}`, null, {
+  return axios.post(`${config.API_URL}/users/send-friend-request/${userId}`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -86,7 +87,7 @@ export const sendFriendRequest = (userId) => {
 
 export const unfriendUser = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete(`http://localhost:8080/api/users/unfriend/${userId}`, {
+  return axios.delete(`${config.API_URL}/users/unfriend/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -95,7 +96,7 @@ export const unfriendUser = (userId) => {
 
 export const fetchAllUsers = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users', {
+  return axios.get(`${config.API_URL}/users`, {
     params: {
       pageNo,
       pageSize,
@@ -110,7 +111,7 @@ export const fetchAllUsers = (pageNo, pageSize, sortBy = 'username', sortDir = '
 
 export const fetchFollowers = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users/followers', {
+  return axios.get(`${config.API_URL}/users/followers`, {
     params: {
       pageNo,
       pageSize,
@@ -125,7 +126,7 @@ export const fetchFollowers = (pageNo, pageSize, sortBy = 'username', sortDir = 
 
 export const fetchFollowing = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users/following', {
+  return axios.get(`${config.API_URL}/users/following`, {
     params: {
       pageNo,
       pageSize,
@@ -140,7 +141,7 @@ export const fetchFollowing = (pageNo, pageSize, sortBy = 'username', sortDir = 
 
 export const fetchFriends = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users/friends', {
+  return axios.get(`${config.API_URL}/users/friends`, {
     params: {
       pageNo,
       pageSize,
@@ -155,7 +156,7 @@ export const fetchFriends = (pageNo, pageSize, sortBy = 'username', sortDir = 'a
 
 export const fetchReceivedFriendRequests = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users/received-friend-requests', {
+  return axios.get(`${config.API_URL}/users/received-friend-requests`, {
     params: {
       pageNo,
       pageSize,
@@ -170,7 +171,7 @@ export const fetchReceivedFriendRequests = (pageNo, pageSize, sortBy = 'username
 
 export const fetchSentFriendRequests = (pageNo, pageSize, sortBy = 'username', sortDir = 'asc') => {
   const token = localStorage.getItem('accessToken');
-  return axios.get('http://localhost:8080/api/users/sent-friend-requests', {
+  return axios.get(`${config.API_URL}/users/sent-friend-requests`, {
     params: {
       pageNo,
       pageSize,
@@ -185,7 +186,7 @@ export const fetchSentFriendRequests = (pageNo, pageSize, sortBy = 'username', s
 
 export const downgradeFromAdmin = () => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete('http://localhost:8080/api/users/downgrade-from-admin', {
+  return axios.delete(`${config.API_URL}/users/downgrade-from-admin`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -194,7 +195,7 @@ export const downgradeFromAdmin = () => {
 
 export const upgradeToAdmin = (userId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/users/${userId}/upgrade-to-admin`, null, {
+  return axios.post(`${config.API_URL}/users/${userId}/upgrade-to-admin`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -204,7 +205,7 @@ export const upgradeToAdmin = (userId) => {
 
 export const fetchUsersLikedPost = (postId, pageNo, pageSize) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/users/like-post/${postId}`, {
+  return axios.get(`${config.API_URL}/users/like-post/${postId}`, {
     params: { pageNo, pageSize },
     headers: {
       Authorization: `Bearer ${token}`,

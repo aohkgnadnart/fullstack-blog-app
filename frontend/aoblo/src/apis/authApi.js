@@ -1,14 +1,15 @@
 import axios from 'axios';
+import config from '../config';
 
 export const login = (usernameOrEmail, password) => {
-  return axios.post('http://localhost:8080/api/auth/login', {
+  return axios.post(`${config.API_URL}/auth/login`, {
     usernameOrEmail,
     password
   });
 };
 
 export const register = (name, username, email, password) => {
-  return axios.post('http://localhost:8080/api/auth/register', {
+  return axios.post(`${config.API_URL}/api/auth/register`, {
     name,
     username,
     email,

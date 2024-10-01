@@ -1,8 +1,9 @@
 // src/api/postApi.js
 import axios from 'axios';
+import config from '../config';
 
 export const fetchPosts = (pageNo, pageSize, sortBy, sortDir) => {
-  return axios.get(`http://localhost:8080/api/posts`, {
+  return axios.get(`${config.API_URL}/posts`, {
     params: {
       pageNo,
       pageSize,
@@ -13,7 +14,7 @@ export const fetchPosts = (pageNo, pageSize, sortBy, sortDir) => {
 };
 
 export const fetchPostsByTitle = (title, pageNo, pageSize, sortBy, sortDir) => {
-  return axios.get(`http://localhost:8080/api/posts/title`, {
+  return axios.get(`${config.API_URL}/posts/title`, {
     params: {
       title,
       pageNo,
@@ -25,7 +26,7 @@ export const fetchPostsByTitle = (title, pageNo, pageSize, sortBy, sortDir) => {
 };
 
 export const fetchPostsByTag = (tagId, pageNo, pageSize, sortBy, sortDir) => {
-  return axios.get(`http://localhost:8080/api/posts/tags/${tagId}`, {
+  return axios.get(`${config.API_URL}/posts/tags/${tagId}`, {
     params: {
       pageNo,
       pageSize,
@@ -36,7 +37,7 @@ export const fetchPostsByTag = (tagId, pageNo, pageSize, sortBy, sortDir) => {
 };
 
 export const fetchPostsByUser = (userId, pageNo, pageSize, sortBy, sortDir) => {
-  return axios.get(`http://localhost:8080/api/posts/users/${userId}`, {
+  return axios.get(`${config.API_URL}/posts/users/${userId}`, {
     params: {
       pageNo,
       pageSize,
@@ -48,7 +49,7 @@ export const fetchPostsByUser = (userId, pageNo, pageSize, sortBy, sortDir) => {
 
 export const createPost = (post) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post('http://localhost:8080/api/posts', post, {
+  return axios.post(`${config.API_URL}/posts`, post, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -56,12 +57,12 @@ export const createPost = (post) => {
 };
 
 export const fetchPostById = (postId) => {
-  return axios.get(`http://localhost:8080/api/posts/${postId}`);
+  return axios.get(`${config.API_URL}/posts/${postId}`);
 };
 
 export const fetchFollowingPosts = (pageNo, pageSize, sortBy, sortDir) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/posts/following`, {
+  return axios.get(`${config.API_URL}/posts/following`, {
     params: {
       pageNo,
       pageSize,
@@ -76,7 +77,7 @@ export const fetchFollowingPosts = (pageNo, pageSize, sortBy, sortDir) => {
 
 export const trackPostViewers = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/posts/${postId}/viewers`, null, {
+  return axios.post(`${config.API_URL}/posts/${postId}/viewers`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -85,7 +86,7 @@ export const trackPostViewers = (postId) => {
 
 export const checkIfLiked = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/posts/${postId}/is-like`, {
+  return axios.get(`${config.API_URL}/posts/${postId}/is-like`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -94,7 +95,7 @@ export const checkIfLiked = (postId) => {
 
 export const checkIfDisliked = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.get(`http://localhost:8080/api/posts/${postId}/is-dislike`, {
+  return axios.get(`${config.API_URL}/posts/${postId}/is-dislike`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -104,7 +105,7 @@ export const checkIfDisliked = (postId) => {
 
 export const likePost = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/posts/${postId}/like`, null, {
+  return axios.post(`${config.API_URL}/posts/${postId}/like`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -113,7 +114,7 @@ export const likePost = (postId) => {
 
 export const dislikePost = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.post(`http://localhost:8080/api/posts/${postId}/dislike`, null, {
+  return axios.post(`${config.API_URL}/posts/${postId}/dislike`, null, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -122,7 +123,7 @@ export const dislikePost = (postId) => {
 
 export const noLikePost = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete(`http://localhost:8080/api/posts/${postId}/no-like`, {
+  return axios.delete(`${config.API_URL}/posts/${postId}/no-like`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -131,7 +132,7 @@ export const noLikePost = (postId) => {
 
 export const noDislikePost = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete(`http://localhost:8080/api/posts/${postId}/no-dislike`, {
+  return axios.delete(`${config.API_URL}/posts/${postId}/no-dislike`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -140,7 +141,7 @@ export const noDislikePost = (postId) => {
 
 export const deletePost = (postId) => {
   const token = localStorage.getItem('accessToken');
-  return axios.delete(`http://localhost:8080/api/posts/${postId}`, {
+  return axios.delete(`${config.API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -149,7 +150,7 @@ export const deletePost = (postId) => {
 
 export const updatePost = async (id, post) => {
   const token = localStorage.getItem('accessToken');
-  return axios.put(`http://localhost:8080/api/posts/${id}`, post, {
+  return axios.put(`${config.API_URL}/posts/${id}`, post, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
