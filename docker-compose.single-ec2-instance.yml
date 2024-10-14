@@ -46,8 +46,8 @@ services:
       context: ./frontend/aoblo
       dockerfile: Dockerfile
     environment: 
-      - REACT_APP_API_URL=http://13.236.91.56:8080/api
-      - REACT_APP_SOCKETIO=http://13.236.91.56:9092/
+      - REACT_APP_API_URL=http://13.238.141.72:8080/api
+      - REACT_APP_SOCKETIO=http://13.238.141.72:9092/
     ports:
       - "3000:3000"
     restart: always
