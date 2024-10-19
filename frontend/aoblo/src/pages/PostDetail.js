@@ -12,8 +12,15 @@ import {
   deletePost
 } from '../apis/postApi';
 import { createComment, createReply, deleteComment } from '../apis/commentApi';
-import { marked } from 'marked';
 import hljs from 'highlight.js';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkSlug from 'remark-slug';
+import remarkAutolinkHeadings from 'remark-autolink-headings';
+import rehypeHighlight from 'rehype-highlight';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import { visit } from 'unist-util-visit';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
 import 'highlight.js/styles/googlecode.css';
@@ -44,6 +51,41 @@ const PostDetail = () => {
     });
   };
 
+  const [headings, setHeadings] = useState([]);
+  
+
+  useEffect(() => {
+    if (post) {
+      const processor = unified()
+        .use(remarkParse)
+        .use(remarkSlug);
+  
+      const tree = processor.parse(post.content);
+      processor.runSync(tree);
+  
+      const headings = [];
+  
+      visit(tree, 'heading', (node) => {
+        if (node.depth >= 1 && node.depth <= 3) {
+          const text = node.children
+            .filter(child => child.type === 'text' || child.type === 'inlineCode')
+            .map(child => child.value)
+            .join('');
+  
+          const id = node.data && node.data.id;
+  
+          headings.push({
+            depth: node.depth,
+            value: text,
+            id: id
+          });
+        }
+      });
+  
+      setHeadings(headings);
+    }
+  }, [post]);
+  
   useEffect(() => {
     if (user) {
       trackPostViewers(id).catch(error => console.error('Error tracking viewer', error));
@@ -290,7 +332,24 @@ const PostDetail = () => {
             <span key={tag.id} className="badge bg-secondary me-1">{tag.name}</span>
           ))}
         </div>
-        <div className="post-content" dangerouslySetInnerHTML={{ __html: marked(post.content) }}></div>
+        {headings.length > 0 && (
+        <div className="table-of-contents">
+          <ul>
+            {headings.map((heading, index) => (
+              <li key={index} style={{ marginLeft: (heading.depth - 1) * 20 }}>
+                <a href={`#${heading.id}`}>{heading.value}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+        <ReactMarkdown
+          children={post.content}
+          remarkPlugins={[remarkGfm, remarkSlug, remarkAutolinkHeadings]}
+          rehypePlugins={[rehypeHighlight]}
+          className="post-content"
+        />
         <div className="post-actions">
           <button
             className={`like ${postLiked ? 'active' : ''}`}
