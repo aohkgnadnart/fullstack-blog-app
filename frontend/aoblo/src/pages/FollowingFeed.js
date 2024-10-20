@@ -4,6 +4,8 @@ import { fetchFollowingPosts } from '../apis/postApi'; // Import API để lấy
 import PostListContainer from '../components/PostListContainer';
 import NavHeader from '../components/Header/NavHeader';
 import './FollowingFeed.css'; // Import file CSS nếu cần
+import SortOptions from '../components/SortOptions';
+
 
 const FollowingFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -31,73 +33,12 @@ const FollowingFeed = () => {
       <NavHeader />
       <div className="container main-content">
         <div className="row my-3">
-          <div className="col-md-12 d-flex align-items-center mt-3">
-            <label className="me-3">Sort by:</label>
-            <div className="form-check form-check-inline d-flex align-items-center me-3">
-              <input 
-                className="form-check-input" 
-                type="radio" 
-                name="sort" 
-                value="lastUpdated" 
-                checked={sortBy === 'lastUpdated'} 
-                onChange={() => setSortBy('lastUpdated')} 
-              />
-              <label className="form-check-label ms-1">Default (last updated)</label>
-            </div>
-            <div className="form-check form-check-inline d-flex align-items-center me-3">
-              <input 
-                className="form-check-input" 
-                type="radio" 
-                name="sort" 
-                value="viewerCount" 
-                checked={sortBy === 'viewerCount'} 
-                onChange={() => setSortBy('viewerCount')} 
-              />
-              <label className="form-check-label ms-1">Viewer</label>
-            </div>
-            <div className="form-check form-check-inline d-flex align-items-center me-3">
-              <input 
-                className="form-check-input" 
-                type="radio" 
-                name="sort" 
-                value="likeCount" 
-                checked={sortBy === 'likeCount'} 
-                onChange={() => setSortBy('likeCount')} 
-              />
-              <label className="form-check-label ms-1">Like</label>
-            </div>
-            <div className="form-check form-check-inline d-flex align-items-center me-3">
-              <input 
-                className="form-check-input" 
-                type="radio" 
-                name="sort" 
-                value="dislikeCount" 
-                checked={sortBy === 'dislikeCount'} 
-                onChange={() => setSortBy('dislikeCount')} 
-              />
-              <label className="form-check-label ms-1">Dislike</label>
-            </div>
-            <div className="form-check form-check-inline d-flex align-items-center me-3">
-              <input 
-                className="form-check-input" 
-                type="radio" 
-                name="sort" 
-                value="commentCount" 
-                checked={sortBy === 'commentCount'} 
-                onChange={() => setSortBy('commentCount')} 
-              />
-              <label className="form-check-label ms-1">Comment</label>
-            </div>
-            <div className="form-check form-check-inline d-flex align-items-center">
-              <input 
-                className="form-check-input" 
-                type="checkbox" 
-                checked={sortDir === 'desc'}
-                onChange={(e) => setSortDir(e.target.checked ? 'desc' : 'asc')}
-              />
-              <label className="form-check-label ms-1">Descending</label>
-            </div>
-          </div>
+          <SortOptions
+            sortBy={sortBy}
+            sortDir={sortDir}
+            handleSortByChange={setSortBy}
+            handleSortDirChange={(e) => setSortDir(e.target.checked ? 'desc' : 'asc')}
+          />
         </div>
         <PostListContainer 
           posts={posts} 
