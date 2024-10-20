@@ -42,6 +42,14 @@
   line-height: 1.6;
 }
 
+.post-content code {
+  background-color: #f5f5f5;  /* Nền xám nhạt cho đoạn code inline */
+  border-radius: 7px;         /* Bo tròn nhẹ */
+  padding: 2px 5px;           /* Khoảng cách giữa nội dung và viền */
+  font-size: 14px;            /* Kích thước font lớn hơn */
+  font-family: 'Fira Code', 'Source Code Pro', 'Monaco', monospace;  /* Font chữ gọn hơn */
+}
+
 .post-body pre {
   background-color: #f8f9fa;
   padding: 10px;

@@ -23,7 +23,7 @@ import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
-import 'highlight.js/styles/googlecode.css';
+import 'highlight.js/styles/base16/summerfruit-light.css';
 import TopHeader from '../components/Header/TopHeader';
 import { UserContext } from '../App';
 import './PostDetail.css';
