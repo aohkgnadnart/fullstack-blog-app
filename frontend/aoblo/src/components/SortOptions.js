@@ -3,7 +3,7 @@ import React from 'react';
 
 const SortOptions = ({ sortBy, sortDir, handleSortByChange, handleSortDirChange }) => {
   return (
-    <div className="col-md-12 d-flex align-items-center mt-3">
+    <div className="col-md-12 d-flex align-items-center flex-wrap mt-3">
       <label className="me-3">Sort by:</label>
       <div className="form-check form-check-inline d-flex align-items-center me-3">
         <input 
