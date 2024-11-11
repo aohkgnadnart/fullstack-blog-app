@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 				contact = @Contact(
 						name = "aohkgnadnart",
 						email = "aohkgnadnart@gmail.com",
-						url = "http://13.238.141.72:3000"
+						url = "http://13.210.185.51:3000"
 				)
 		),
 		externalDocs = @ExternalDocumentation(
 				description = "Spring boot blog app documentation",
-				url = "http://13.238.141.72:3000"
+				url = "http://13.210.185.51:3000"
 		)
 )
 public class SpringbootBlogRestApiApplication {
