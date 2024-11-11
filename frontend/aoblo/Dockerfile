@@ -1,5 +1,5 @@
 # Sử dụng Node.js phiên bản 14 làm base image
-FROM node:14
+FROM node:14-alpine
 
 # Đặt thư mục làm việc trong container
 WORKDIR /app
