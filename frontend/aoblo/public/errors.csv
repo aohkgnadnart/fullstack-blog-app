@@ -1,0 +1,26 @@
+code,message
+ERROR_CODE,This is the error message.
+ANOTHER_ERROR,Another error message here.
+ERR_TAG_COUNT,so luong nhan tu 1 den 5
+CREATE_POST_SUCCESS,Post created successfully
+NOT_FULL_FIELD,tieu de khong de trong
+ERR_TITLE_LENGTH,tieu de bi trung
+NOT_FULL_FIELD,khong duoc de trong
+ERR_CONTENT_LENGTH,khong nam trong kich thuoc noi dung cho phep
+CONNECT_ERROR,Lỗi kết nối mạng 
+TITLE_ALREADY_EXISTS,tieu de da ton tai
+TAG_ALREADY_SELECTED,tag already selected
+FRIEND_REQUEST_SUCCESSFULLY,Gửi lời mời kết bạn thành công
+UNFRIEND_SUCCESSFULLY,Hủy kết bạn thành công
+SIGN_IN_REQUIRE,Chưa đăng nhập
+FRIEND_REQUEST_FAIL,Gửi lời mời kết bạn không thành công
+UNFRIEND_FAIL,Hủy kết bạn không thành công
+FOLLOW_SUCCESSFULLY,Theo dõi thành công
+UNFOLLOW_SUCCESSFULLY,Hủy theo dõi thành công
+UNFOLLOW_FAIL,Hủy theo dõi khong thành công
+FOLLOW_FAIL,theo dõi khong thành công
+SIGN_IN_REQUIRE,Chưa đăng nhập
+FOLLOW_FAIL,Theo dõi không thành công
+UNFOLLOW_FAIL,Hủy theo dõi không thành công
+CREATE_MESSAGE_SUCCESS,Nhắn tin thành công
+CREATE_MESSAGE_FAIL,Nhắn tin khong thành công

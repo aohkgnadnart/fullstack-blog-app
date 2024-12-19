@@ -3,10 +3,11 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { ErrorProvider } from './context/ErrorProvider';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ErrorProvider>
     <App />
-  </React.StrictMode>,
+  </ErrorProvider>,
   document.getElementById('root')
 );

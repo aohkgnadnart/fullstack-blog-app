@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { debounce } from 'lodash';
@@ -11,8 +11,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import 'react-markdown-editor-lite/lib/index.css';
 import './CreatePost.css';
+import { ErrorContext } from '../context/ErrorProvider'; ///////////////
 
 const CreatePost = () => {
+
+  const errors = useContext(ErrorContext); /////////
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tagInput, setTagInput] = useState('');
@@ -39,11 +43,11 @@ const CreatePost = () => {
 
   const handleTagSelect = (tag) => {
     if (selectedTags.length >= 5) {
-      toast.error('You can only select up to 5 tags.');
+      toast.error(errors['ERR_TAG_COUNT'] || 'You can only select up to 5 tags.');
       return;
     }
     if (selectedTags.some(selectedTag => selectedTag.name === tag.name)) {
-      toast.error('Tag already selected.');
+      toast.error(errors['TAG_ALREADY_SELECTED'] || 'Tag already selected.');
       return;
     }
     setSelectedTags([...selectedTags, tag]);
@@ -64,7 +68,7 @@ const CreatePost = () => {
       }
       if (newTagInput) {
         if (selectedTags.some(tag => tag.name === newTagInput)) {
-          toast.error('Tag already selected.');
+          toast.error(errors['TAG_ALREADY_SELECTED'] || 'Tag already selected.');
         } else {
           const newTag = { id: Date.now(), name: newTagInput };
           handleTagSelect(newTag);
@@ -75,14 +79,14 @@ const CreatePost = () => {
 
   const handleCreatePost = async () => {
     if (selectedTags.length < 1 || selectedTags.length > 5) {
-      toast.error('The number of tags must be between 1 and 5.');
+      toast.error(errors['ERR_TAG_COUNT'] || 'The number of tags must be between 1 and 5.');
       return;
     }
 
     const post = { title, content, tags: selectedTags.map(tag => tag.name) };
     try {
       await createPost(post);
-      toast.success('Post created successfully!');
+      toast.success(errors['CREATE_POST_SUCCESS'] || 'Post created successfully!');
       navigate('/');
     } catch (error) {
       if (error.response) {
@@ -95,7 +99,7 @@ const CreatePost = () => {
           });
         }
       } else {
-        toast.error('An error occurred while creating the post.');
+        toast.error(errors['CONNECT_ERROR'] || 'An error occurred while creating the post.');
       }
     }
   };

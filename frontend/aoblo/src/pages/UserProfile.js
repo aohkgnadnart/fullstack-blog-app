@@ -5,8 +5,11 @@ import { UserContext } from '../App';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap'; // Import Modal and Button
 import './UserProfile.css';
+import { ErrorContext } from '../context/ErrorProvider'; ///////////////
 
 const UserProfile = () => {
+  const errors = useContext(ErrorContext); /////////
+
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -49,28 +52,28 @@ const UserProfile = () => {
 
   const handleFollowToggle = () => {
     if (!currentUser) {
-      toast.warning('Thao tác này cần đăng nhập');
+      toast.warning(errors['SIGN_IN_REQUIRE'] || 'Thao tác này cần đăng nhập');
       return;
     }
 
     if (isFollowing) {
       unfollowUser(id)
         .then(() => {
-          toast.success('You have unfollowed successfully');
+          toast.success(errors['UNFOLLOW_SUCCESSFULLY'] || 'You have unfollowed successfully');
           setIsFollowing(false);
         })
         .catch(error => {
-          toast.error('Error unfollowing user');
+          toast.error(errors['UNFOLLOW_FAIL'] || 'Error unfollowing user');
           console.error('Error unfollowing user', error);
         });
     } else {
       followUser(id)
         .then(() => {
-          toast.success('You are now following this user');
+          toast.success(errors['FOLLOW_SUCCESSFULLY'] || 'You are now following this user');
           setIsFollowing(true);
         })
         .catch(error => {
-          toast.error('Error following user');
+          toast.error(errors['UNFOLLOW_FAIL'] || 'Error following user');
           console.error('Error following user', error);
         });
     }
@@ -78,28 +81,28 @@ const UserProfile = () => {
 
   const handleFriendToggle = () => {
     if (!currentUser) {
-      toast.warning('Thao tác này cần đăng nhập');
+      toast.warning(errors['SIGN_IN_REQUIRE'] || 'Thao tác này cần đăng nhập');
       return;
     }
 
     if (isFriend) {
       unfriendUser(id)
         .then(() => {
-          toast.success('You have unfriended this user');
+          toast.success(errors['UNFRIEND_SUCCESSFULLY'] || 'You have unfriended this user');
           checkIfFriend(id).then(response => setIsFriend(response.data));
         })
         .catch(error => {
-          toast.error('Error unfriending user');
+          toast.error(errors['UNFRIEND_FAIL'] || 'Error unfriending user');
           console.error('Error unfriending user', error);
         });
     } else {
       sendFriendRequest(id)
         .then(() => {
-          toast.success('Friend request sent successfully');
+          toast.success(errors['FRIEND_REQUEST_SUCCESSFULLY'] || 'Friend request sent successfully');
           checkIfFriend(id).then(response => setIsFriend(response.data));
         })
         .catch(error => {
-          toast.error('Error sending friend request');
+          toast.error(errors['FRIEND_REQUEST_FAIL'] || 'Error sending friend request');
           console.error('Error sending friend request', error);
         });
     }
@@ -107,7 +110,7 @@ const UserProfile = () => {
 
   const handleSendMessage = () => {
     if (!currentUser) {
-      toast.warning('Thao tác này cần đăng nhập');
+      toast.warning(errors['SIGN_IN_REQUIRE'] || 'Thao tác này cần đăng nhập');
       return;
     }
     navigate(`/message/${id}`);

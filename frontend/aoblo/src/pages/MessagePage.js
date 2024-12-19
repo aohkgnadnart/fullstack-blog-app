@@ -6,7 +6,11 @@ import { io } from "socket.io-client";
 import { fetchMessageHistory, sendMessage } from '../apis/messageApi';
 import './MessagePage.css'; 
 
+import { ErrorContext } from '../context/ErrorProvider'; ///////////////
+
 const MessagePage = () => {
+  const errors = useContext(ErrorContext); /////////
+  
   const { userId } = useParams();
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
@@ -78,10 +82,10 @@ const MessagePage = () => {
       setNewMessage('');
       socketRef.current.emit("messageClient", { userId: userId });
       fetchMessages(0, false);
-      toast.success('Tin nhắn đã được gửi');
+      toast.success(errors['CREATE_MESSAGE_SUCCESS'] || 'Tin nhắn đã được gửi');
     } catch (error) {
       console.error('Error sending message', error);
-      toast.error('Lỗi khi gửi tin nhắn');
+      toast.error(errors['CREATE_MESSAGE_FAIL'] || 'Lỗi khi gửi tin nhắn');
     }
   };
 
