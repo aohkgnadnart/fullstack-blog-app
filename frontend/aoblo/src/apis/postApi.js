@@ -156,3 +156,15 @@ export const updatePost = async (id, post) => {
     },
   });
 };
+
+export const fetchPostRevisionHistory = (postId, pageNo = 0, pageSize = 10) => {
+  return axios.get(`${config.API_URL}/posts/${postId}/revisions?pageNo=${pageNo}&pageSize=${pageSize}`);
+};
+
+export const fetchPostRevision = (postId, revisionId) => {
+  return axios.get(`${config.API_URL}/posts/${postId}/revisions/${revisionId}`);
+};
+
+export const compareRevisions = (postId, revisionId1, revisionId2) => {
+  return axios.get(`${config.API_URL}/posts/${postId}/revisions/compare?revisionId1=${revisionId1}&revisionId2=${revisionId2}`);
+};

@@ -262,4 +262,18 @@
   /* Cho phép xuống dòng khi không hover */
 }
 
+.history-post {
+  background-color: #4a148c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.history-post:hover {
+  background-color: #6a1b9a;
+}
+
 

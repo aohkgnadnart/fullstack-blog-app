@@ -27,6 +27,7 @@ import 'highlight.js/styles/base16/summerfruit-light.css';
 import TopHeader from '../components/Header/TopHeader';
 import { UserContext } from '../App';
 import './PostDetail.css';
+import PostRevisionHistory from '../components/PostRevisionHistory';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -38,6 +39,7 @@ const PostDetail = () => {
   const [postLiked, setPostLiked] = useState(false);
   const [postDisliked, setPostDisliked] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showRevisionHistory, setShowRevisionHistory] = useState(false);
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -275,6 +277,15 @@ const PostDetail = () => {
     }
   };
 
+  const handleRevisionRestored = () => {
+    // Làm mới dữ liệu bài viết
+    fetchPostDetails();
+    // Đóng modal lịch sử
+    setShowRevisionHistory(false);
+    // Hiển thị thông báo thành công
+    toast.success('Bài viết đã được hoàn tác thành công');
+  };
+
   const renderComments = (comments, level = 0) => {
     return comments.map(comment => {
       const canDeleteComment = user && (user.roles.some(role => role.name === 'ROLE_ADMIN') || user.id === comment.user.id);
@@ -364,13 +375,22 @@ const PostDetail = () => {
             Dislike
           </button>
           {isAuthor && (
-            <button
-              className="edit-post"
-              style={{ float: 'right', marginLeft: '10px' }}
-              onClick={handleEditClick}
-            >
-              Edit
-            </button>
+            <>
+              <button
+                className="edit-post"
+                style={{ float: 'right', marginLeft: '10px' }}
+                onClick={handleEditClick}
+              >
+                Edit
+              </button>
+              <button
+                className="history-post"
+                style={{ float: 'right', marginLeft: '10px' }}
+                onClick={() => setShowRevisionHistory(true)}
+              >
+                History
+              </button>
+            </>
           )}
           {isAdminOrAuthor && (
             <button
@@ -410,6 +430,17 @@ const PostDetail = () => {
             Delete
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      {/* Modal lịch sử thay đổi */}
+      <Modal show={showRevisionHistory} onHide={() => setShowRevisionHistory(false)} size="lg">
+        <Modal.Body>
+          <PostRevisionHistory
+            postId={post.id}
+            onClose={() => setShowRevisionHistory(false)}
+            onRevisionRestored={handleRevisionRestored}
+          />
+        </Modal.Body>
       </Modal>
     </div>
   ) : (
