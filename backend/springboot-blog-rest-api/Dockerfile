@@ -10,6 +10,9 @@ COPY .mvn/ .mvn/
 COPY src/ src/
 COPY pom.xml .
 
+# Sử dụng sed để chuyển đổi file mvnw sang định dạng Unix và cấp quyền thực thi
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
+
 # Xóa thư mục target, biên dịch và đóng gói dự án thành file jar, bỏ qua các bài kiểm tra
 RUN ./mvnw clean package -DskipTests
 
