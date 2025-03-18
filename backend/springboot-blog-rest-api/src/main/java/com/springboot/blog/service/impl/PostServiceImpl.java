@@ -1,15 +1,13 @@
 package com.springboot.blog.service.impl;
 
 import com.springboot.blog.entity.Post;
+import com.springboot.blog.entity.PostRevision;
 import com.springboot.blog.entity.Tag;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.BlogAPIException;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
-import com.springboot.blog.repository.CommentRepository;
-import com.springboot.blog.repository.PostRepository;
-import com.springboot.blog.repository.TagRepository;
-import com.springboot.blog.repository.UserRepository;
+import com.springboot.blog.repository.*;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.service.TagService;
 import com.springboot.blog.utils.AppConstants;
@@ -25,10 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +43,8 @@ public class PostServiceImpl implements PostService {
 
     private CommentRepository commentRepository;
 
+    private PostRevisionRepository postRevisionRepository;
+
 
     public PostServiceImpl(PostRepository postRepository,
                            UserRepository userRepository,
@@ -55,7 +52,8 @@ public class PostServiceImpl implements PostService {
                            ModelMapper mapper,
                            RabbitTemplate rabbitTemplate,
                            TagService tagService,
-                           CommentRepository commentRepository) {
+                           CommentRepository commentRepository,
+                           PostRevisionRepository postRevisionRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
@@ -63,9 +61,11 @@ public class PostServiceImpl implements PostService {
         this.rabbitTemplate = rabbitTemplate;
         this.tagService = tagService;
         this.commentRepository = commentRepository;
+        this.postRevisionRepository = postRevisionRepository;
     }
 
     @Override
+    @Transactional
     public PostFullResponseDto createPost(PostRequestDto postRequestDto) {
 
         // Kiểm tra tiêu đề đã tồn tại
@@ -103,6 +103,16 @@ public class PostServiceImpl implements PostService {
         post.setUser(user);
         post.setLastUpdated(LocalDateTime.now());
         Post newPost = postRepository.save(post);
+
+        // Create initial revision
+        PostRevision revision = new PostRevision();
+        revision.setPost(newPost);
+        revision.setUser(user);
+        revision.setTitle(newPost.getTitle());
+        revision.setContent(newPost.getContent());
+        revision.setTags(new ArrayList<>(newPost.getTags()));
+        revision.setRevisionType(PostRevision.RevisionType.CREATED);
+        postRevisionRepository.save(revision);
 
         return mapper.map(newPost, PostFullResponseDto.class);
     }
@@ -217,6 +227,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public PostFullResponseDto updatePost(PostRequestDto postRequestDto, long id) {
         // get post by id from database
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(id)));
@@ -263,22 +274,27 @@ public class PostServiceImpl implements PostService {
         post.setTitle(postRequestDto.getTitle());
         post.setContent(postRequestDto.getContent());
         post.setLastUpdated(LocalDateTime.now());
-        Post newPost = postRepository.save(post);
+        Post updatedPost = postRepository.save(post);
 
-        return mapper.map(newPost, PostFullResponseDto.class);
+        // Create revision for update
+        PostRevision revision = new PostRevision();
+        revision.setPost(updatedPost);
+        revision.setUser(user);
+        revision.setTitle(updatedPost.getTitle());
+        revision.setContent(updatedPost.getContent());
+        revision.setTags(new ArrayList<>(updatedPost.getTags()));
+        revision.setRevisionType(PostRevision.RevisionType.UPDATED);
+        postRevisionRepository.save(revision);
+
+        return mapper.map(updatedPost, PostFullResponseDto.class);
     }
 
-
-
-
-
     @Override
+    @Transactional
     public void deletePostById(long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(id)));
 
-        // get post by id from database
-        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(id)));
-
-        // kiem tra xem role cua currentUsernam co phai admin hoac author khong
         if(!SecurityUtils.hasRole(AppConstants.ROLE_ADMIN) && !SecurityUtils.getCurrentUsername().equals(post.getUser().getUsername())){
             throw new BlogAPIException(HttpStatus.FORBIDDEN, "You do not have permission to delete this post");
         }
@@ -473,7 +489,86 @@ public class PostServiceImpl implements PostService {
         rabbitTemplate.convertAndSend(AppConstants.DELETE_COMMENT_ON_POST_QUEUE, event);
     }
 
+    @Override
+    public Page<PostRevisionResponseDto> getPostRevisionHistory(long postId, int pageNo, int pageSize) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", Long.toString(postId)));
 
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("createdAt").descending());
+        Page<PostRevision> revisions = postRevisionRepository.findByPostId(postId, pageable);
+
+        return revisions.map(revision -> mapper.map(revision, PostRevisionResponseDto.class));
+    }
+
+    @Override
+    public PostRevisionResponseDto getPostRevision(long revisionId) {
+        PostRevision revision = postRevisionRepository.findById(revisionId)
+                .orElseThrow(() -> new ResourceNotFoundException("PostRevision", "id", Long.toString(revisionId)));
+
+        return mapper.map(revision, PostRevisionResponseDto.class);
+    }
+
+    @Override
+    public String compareRevisions(long revisionId1, long revisionId2) {
+        // Lấy ra hai phiên bản
+        PostRevision revision1 = postRevisionRepository.findById(revisionId1)
+                .orElseThrow(() -> new ResourceNotFoundException("PostRevision", "id", Long.toString(revisionId1)));
+        PostRevision revision2 = postRevisionRepository.findById(revisionId2)
+                .orElseThrow(() -> new ResourceNotFoundException("PostRevision", "id", Long.toString(revisionId2)));
+
+        // Xác định phiên bản cũ và mới dựa trên thời gian tạo
+        PostRevision oldRevision = revision1.getCreatedAt().isBefore(revision2.getCreatedAt()) ? revision1 : revision2;
+        PostRevision newRevision = revision1.getCreatedAt().isBefore(revision2.getCreatedAt()) ? revision2 : revision1;
+
+        StringBuilder diff = new StringBuilder();
+        
+        // So sánh tiêu đề
+        if (!oldRevision.getTitle().equals(newRevision.getTitle())) {
+            diff.append("Title changes:\n");
+            diff.append("- ").append(oldRevision.getTitle()).append("\n");
+            diff.append("+ ").append(newRevision.getTitle()).append("\n\n");
+        }
+
+        // So sánh tags
+        Set<String> oldTags = oldRevision.getTags().stream().map(Tag::getName).collect(Collectors.toSet());
+        Set<String> newTags = newRevision.getTags().stream().map(Tag::getName).collect(Collectors.toSet());
+
+        if (!oldTags.equals(newTags)) {
+            diff.append("Tag changes:\n");
+            
+            // Tags đã bị xóa (có trong phiên bản cũ nhưng không có trong phiên bản mới)
+            Set<String> removedTags = new HashSet<>(oldTags);
+            removedTags.removeAll(newTags);
+            removedTags.forEach(tag -> diff.append("- ").append(tag).append("\n"));
+
+            // Tags được thêm mới (có trong phiên bản mới nhưng không có trong phiên bản cũ)
+            Set<String> addedTags = new HashSet<>(newTags);
+            addedTags.removeAll(oldTags);
+            addedTags.forEach(tag -> diff.append("+ ").append(tag).append("\n"));
+            
+            diff.append("\n");
+        }
+
+        // So sánh nội dung theo từng dòng
+        String[] oldLines = oldRevision.getContent().split("\n");
+        String[] newLines = newRevision.getContent().split("\n");
+        
+        diff.append("Content changes:\n");
+        int maxLines = Math.max(oldLines.length, newLines.length);
+        for (int i = 0; i < maxLines; i++) {
+            String oldLine = i < oldLines.length ? oldLines[i] : "";
+            String newLine = i < newLines.length ? newLines[i] : "";
+            
+            if (!oldLine.equals(newLine)) {
+                if (!oldLine.isEmpty()) diff.append("- ").append(oldLine).append("\n");
+                if (!newLine.isEmpty()) diff.append("+ ").append(newLine).append("\n");
+            } else {
+                diff.append("  ").append(oldLine).append("\n");
+            }
+        }
+
+        return diff.toString();
+    }
 
 //    private PostPersonalizedResponseDto mapToDto(Post post){
 //        PostPersonalizedResponseDto postPersonalizedResponseDto = mapper.map(post, PostPersonalizedResponseDto.class);

@@ -80,4 +80,7 @@ public class Post {
 
     @Column(name = "last_updated", nullable = false)
     private LocalDateTime lastUpdated;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostRevision> revisions = new ArrayList<>();
 }
