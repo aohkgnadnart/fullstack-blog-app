@@ -118,6 +118,10 @@ const PostDetail = () => {
     }
   }, [post]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleLike = async () => {
     if (!user) {
       toast.warning('Tính năng này cần đăng nhập');
