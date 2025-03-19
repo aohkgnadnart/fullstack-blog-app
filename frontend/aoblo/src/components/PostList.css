@@ -1,5 +1,8 @@
 /* src/components/PostList.css */
 .post-list {
-    padding: 20px;
-  }
-  
+    padding: 0;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}

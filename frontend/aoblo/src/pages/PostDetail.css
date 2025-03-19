@@ -189,7 +189,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -226,7 +226,7 @@
 .table-of-contents {
   position: fixed;
   top: 100px;
-  left: 20px; /* Chuyển mục lục sang bên trái */
+  left: calc(50% - var(--container-width)/2 - 300px); /* Định vị dựa vào container */
   width: 280px; /* Chiều rộng ban đầu khi không hover */
   max-height: 70vh;
   background-color: #fff;

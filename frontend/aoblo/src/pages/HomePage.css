@@ -27,3 +27,17 @@
 .tag-item:not(:last-child) {
   border-bottom: 1px solid #eee;
 }
+
+.main-content {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.post-list-container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
