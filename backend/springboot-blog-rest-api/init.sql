@@ -90,7 +90,7 @@ CREATE TABLE `comments` (
   CONSTRAINT `FK7h839m3lkvhbyv3bcdv7sm4fj` FOREIGN KEY (`parent_comment_id`) REFERENCES `comments` (`id`),
   CONSTRAINT `FK8omq0tc18jd43bu5tjh6jvraq` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FKh4c7lvsc298whoyd4w9ta25cr` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +99,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (119,'Sử dụng --force-with-lease khi push để đảm bảo rằng không có sự thay đổi ở remote so với lần push trước đó.','2025-03-19 08:56:18.774609',0,0,NULL,36,1);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +184,7 @@ CREATE TABLE `posts` (
   UNIQUE KEY `UKmchce1gm7f6otpphxd6ixsdps` (`title`),
   KEY `FK5lidm6cqbc7u4xhqpxm898qme` (`user_id`),
   CONSTRAINT `FK5lidm6cqbc7u4xhqpxm898qme` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,6 +193,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (34,0,'# Problem\nkhi có nhiều tài khoản github, việc push commit đúng tài khoản là vấn đề.\n# Solution\n## GitHub CLI\nDưới đây là hướng dẫn cơ bản để sử dụng GitHub CLI (gh) nhằm đăng nhập, kiểm tra trạng thái, và chuyển đổi giữa các tài khoản GitHub:\n\n---\n\n### 1. Cài đặt GitHub CLI\n\n- **Tải và cài đặt:**  \n  Truy cập trang chính thức của GitHub CLI tại [cli.github.com](https://cli.github.com/) để tải và cài đặt phiên bản phù hợp với hệ điều hành của bạn.\n\n---\n\n### 2. Đăng nhập vào tài khoản GitHub\n\n- **Sử dụng lệnh đăng nhập:**  \n  Mở terminal và chạy lệnh:\n  ```bash\n  gh auth login\n  ```\n  Lệnh này sẽ hướng dẫn bạn chọn giữa đăng nhập qua web hoặc nhập token. Bạn có thể chọn đăng nhập qua web để tiện lợi:\n  - Chọn “GitHub.com” khi được hỏi.\n  - Chọn “Web browser” để mở trình duyệt và xác thực.\n  - Sau khi xác thực thành công, terminal sẽ thông báo bạn đã đăng nhập thành công.\n\n- **Ví dụ đăng nhập:**\n  ```bash\n  $ gh auth login\n  ? What account do you want to log into? GitHub.com\n  ? What is your preferred protocol for Git operations? HTTPS\n  ? Authenticate Git with your GitHub credentials? Yes\n  - Opening https://github.com/login/device in your browser...\n  ```\n  \n---\n\n### 3. Kiểm tra trạng thái đăng nhập\n\n- **Xem tài khoản hiện tại:**  \n  Sử dụng lệnh:\n  ```bash\n  gh auth status\n  ```\n  Lệnh này sẽ hiển thị thông tin tài khoản hiện đang đăng nhập cùng với các scopes được cấp phép.\n\n---\n\n### 4. Chuyển đổi giữa các tài khoản\n\nNếu bạn có nhiều tài khoản GitHub, bạn có thể chuyển đổi theo các bước sau:\n\n- **Đăng xuất khỏi tài khoản hiện tại:**  \n  ```bash\n  gh auth logout\n  ```\n  Lệnh này sẽ đăng xuất bạn khỏi tài khoản đang đăng nhập. Bạn sẽ được hỏi xác nhận đăng xuất.\n\n- **Đăng nhập vào tài khoản khác:**  \n  Sau khi đăng xuất, chạy lại lệnh:\n  ```bash\n  gh auth login\n  ```\n  Và thực hiện quá trình đăng nhập như hướng dẫn ở bước 2 với tài khoản mong muốn.\n\n\n---\n\n### Tóm lại\n\n- **Đăng nhập:** Sử dụng `gh auth login` để đăng nhập.\n- **Kiểm tra trạng thái:** Dùng `gh auth status` để xem tài khoản hiện tại.\n- **Chuyển đổi tài khoản:** Đăng xuất bằng `gh auth logout` rồi đăng nhập lại với tài khoản khác.\n\nVới GitHub CLI, bạn có thể dễ dàng quản lý và chuyển đổi giữa các tài khoản GitHub mà không cần phải thay đổi nhiều cấu hình thủ công.\n\n---\n\nTham khảo thêm tài liệu chính thức của GitHub CLI tại [docs.github.com/en/cli](https://docs.github.com/en/cli) để biết thêm chi tiết.\n',0,'2025-03-19 08:46:10.483662',0,'Cách chuyển đổi tài khoản github nhanh chóng để push commit',1,1),(35,0,'Cả hai tùy chọn đều dùng để ép buộc ghi đè lịch sử commit trên remote, nhưng chúng khác nhau ở chỗ:\n\n- **--force:**  \n  - Khi sử dụng, Git sẽ ghi đè trực tiếp lên remote mà không kiểm tra sự thay đổi của người khác.  \n  - Nếu có người khác đã đẩy commit mới lên remote, bạn có thể vô tình ghi đè và làm mất dữ liệu của họ.\n\n- **--force-with-lease:**  \n  - Tùy chọn này an toàn hơn vì Git sẽ kiểm tra trước xem remote có thay đổi nào không so với lần đẩy cuối cùng của bạn.  \n  - Nếu remote đã được cập nhật (ví dụ: có commit của người khác), lệnh sẽ từ chối push để bảo vệ dữ liệu.  \n  - Chỉ khi remote vẫn giữ nguyên trạng thái như lần bạn lấy về (fetch) thì push sẽ được thực hiện.\n\nTóm lại, **--force-with-lease** là lựa chọn an toàn hơn khi cần ghi đè, giúp tránh việc vô tình ghi đè commit của người khác trên remote.',0,'2025-03-19 08:48:57.542496',0,'Cẩn thận với --force trong git',1,1),(36,1,'Để xóa hoàn toàn một commit khỏi lịch sử (biến mất không dấu vết), bạn sẽ cần phải **viết lại lịch sử commit** của nhánh bằng cách sử dụng lệnh **git reset** hoặc **git rebase -i** rồi **force push** lên remote. Dưới đây là các bước cụ thể:\n\n### 1. Sử dụng **git reset** (nếu commit cần loại bỏ là commit cuối cùng hoặc gần cuối)\n- **Bước 1:** Xác định commit trước commit bạn muốn loại bỏ. Giả sử bạn muốn xóa commit cuối cùng, bạn có thể đưa nhánh về commit trước đó:\n  ```bash\n  git reset --hard HEAD~1\n  ```\n- **Bước 2:** Sau đó, force push thay đổi lên remote:\n  ```bash\n  git push origin <branch-name> --force\n  ```\n  *Lưu ý:* Việc sử dụng `--force` sẽ ghi đè lịch sử trên remote, vì vậy hãy chắc chắn rằng không có ai khác đang làm việc trên nhánh đó.\n\n### 2. Sử dụng **git rebase -i** (nếu commit cần xóa nằm giữa lịch sử commit)\n- **Bước 1:** Chạy rebase tương tác bắt đầu từ commit ngay trước commit cần loại bỏ:\n  ```bash\n  git rebase -i <commit-hash>^\n  ```\n  Trong đó, `<commit-hash>` là mã của commit bạn muốn loại bỏ.\n- **Bước 2:** Trong trình soạn thảo, tìm dòng chứa commit đó và thay đổi từ `pick` thành `drop` (hoặc xóa dòng đó).\n- **Bước 3:** Lưu và thoát trình soạn thảo để hoàn thành rebase.\n- **Bước 4:** Sau đó, force push lên remote:\n  ```bash\n  git push origin <branch-name> --force\n  ```\n\n### Lưu ý quan trọng\n- **Cảnh báo:** Việc force push sẽ ghi đè lịch sử commit trên remote, do đó cần thận trọng và thông báo cho các thành viên khác cùng làm việc trên nhánh nếu cần.\n- **Backup:** Hãy đảm bảo rằng bạn đã sao lưu hoặc kiểm tra kỹ lưỡng trước khi thực hiện thao tác này để tránh mất mát dữ liệu không mong muốn.\n\nVới cách này, commit bạn muốn loại bỏ sẽ không còn xuất hiện trong lịch sử của nhánh nữa.',0,'2025-03-19 08:52:12.703210',0,'Cách để xóa hoàn toàn một commit khỏi lịch sử',1,1),(37,0,'Trong câu lệnh `git push -u origin master`, option `-u` (viết tắt của `--set-upstream`) có tác dụng thiết lập branch từ xa (remote branch) làm \"upstream\" cho branch hiện tại của bạn. Điều này giúp:\n\n- **Đồng bộ dễ dàng hơn:** Sau khi đã thiết lập upstream, bạn chỉ cần sử dụng `git push` hoặc `git pull` mà không cần phải chỉ định lại remote và branch.\n- **Theo dõi trạng thái:** Git sẽ tự động biết branch nào đang theo dõi branch từ xa, giúp hiển thị thông tin khác biệt giữa chúng một cách rõ ràng.\n\nVậy, `-u` giúp bạn tiết kiệm công việc gõ lại thông tin remote/branch và hỗ trợ quản lý các thay đổi giữa branch cục bộ và branch từ xa hiệu quả hơn.\n\n**Tóm lại:** Không nên dùng, dùng câu lệnh dài một chút nhưng tường mình, ví dụ như:\n```\ngit push origin <local_branch>:<remote_branch>\n```',0,'2025-03-19 09:05:37.025259',0,'Sự vô dụng của git push -u',1,1);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +272,7 @@ CREATE TABLE `posts_tags` (
 
 LOCK TABLES `posts_tags` WRITE;
 /*!40000 ALTER TABLE `posts_tags` DISABLE KEYS */;
+INSERT INTO `posts_tags` VALUES (34,46),(34,47),(34,48),(34,49),(35,49),(36,49),(37,49),(35,50);
 /*!40000 ALTER TABLE `posts_tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,6 +299,7 @@ CREATE TABLE `posts_viewers` (
 
 LOCK TABLES `posts_viewers` WRITE;
 /*!40000 ALTER TABLE `posts_viewers` DISABLE KEYS */;
+INSERT INTO `posts_viewers` VALUES (34,1),(35,1),(36,1),(37,1);
 /*!40000 ALTER TABLE `posts_viewers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +340,7 @@ CREATE TABLE `tags` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKt48xdq560gs3gap9g7jg36kgc` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +349,7 @@ CREATE TABLE `tags` (
 
 LOCK TABLES `tags` WRITE;
 /*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-INSERT INTO `tags` VALUES (14,'..'),(34,'agile'),(43,'báo cáo'),(40,'basic'),(32,'developer'),(6,'eu'),(7,'euro'),(45,'fdfd'),(42,'fdsfds'),(41,'fdskfjk'),(44,'fsdf'),(28,'gaga'),(9,'gg'),(10,'gg dich'),(29,'haha'),(18,'hình đẹp'),(27,'huhu'),(13,'không'),(12,'không có'),(17,'không có việc gì khó'),(11,'khong sao'),(22,'kim dung'),(23,'lệnh hồ sung'),(39,'markdown'),(26,'mây'),(19,'mây xanh'),(24,'newbie'),(25,'ngày dài'),(21,'phim'),(30,'string'),(1,'stringaaaaaaa'),(5,'stringaaaazzzzz'),(2,'stringabbbbbbbb'),(3,'stringqqqq'),(4,'stringqqqq22222222'),(36,'thảo luận'),(16,'trần đăng khoa'),(20,'truyện'),(31,'tủ sách'),(38,'tutorial'),(8,'uno'),(33,'waterfall'),(35,'welcome'),(15,'y học');
+INSERT INTO `tags` VALUES (14,'..'),(34,'agile'),(43,'báo cáo'),(40,'basic'),(32,'developer'),(6,'eu'),(7,'euro'),(45,'fdfd'),(42,'fdsfds'),(41,'fdskfjk'),(44,'fsdf'),(28,'gaga'),(9,'gg'),(10,'gg dich'),(48,'gh'),(49,'git'),(50,'git push'),(46,'github'),(47,'github cli'),(29,'haha'),(18,'hình đẹp'),(27,'huhu'),(13,'không'),(12,'không có'),(17,'không có việc gì khó'),(11,'khong sao'),(22,'kim dung'),(23,'lệnh hồ sung'),(39,'markdown'),(26,'mây'),(19,'mây xanh'),(24,'newbie'),(25,'ngày dài'),(21,'phim'),(30,'string'),(1,'stringaaaaaaa'),(5,'stringaaaazzzzz'),(2,'stringabbbbbbbb'),(3,'stringqqqq'),(4,'stringqqqq22222222'),(36,'thảo luận'),(16,'trần đăng khoa'),(20,'truyện'),(31,'tủ sách'),(38,'tutorial'),(8,'uno'),(33,'waterfall'),(35,'welcome'),(15,'y học');
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +380,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'2024-07-28 06:01:37','admin@gmail.com','2025-03-19 08:33:05','ta la admin day','$2a$10$35WqtcXWAcdzg4Heotn.5uIyZtxIy2sTAWk9kHYvOEkdLNuDQZE/C','admin'),(2,'2024-07-28 06:09:00','aohk@gmail.com','2024-08-14 00:08:28','ta la aohk day','$2a$10$h.kBL5bWOpbHzV/SWrlo9ePiwPOgq18evp6R33AFitVOnBOnQDDSK','aohk'),(3,'2024-07-28 06:11:26','aofsdfsdfdsfsdfdfshk@gmail.com','2024-07-28 06:11:25','ta la aohk day','$2a$10$4PPrt3FSMv7bcfXQk50.U.wTIVJzhji18UEKJrr7rvByXB4uLyJH.','aohfdsfsdk'),(4,'2024-07-28 06:12:20','aofsdfsdfdssfsdfdfshk@gmail.com','2024-07-28 06:12:19','ta la aohk day','$2a$10$4vRX1F.lLBg/wFatv/iAzOJcdvy98v2Y9CsgjeEii8F4m9ymRLef2','aohfdsfsdsk'),(5,'2024-07-28 06:15:59','aofsdfsddfdssfsdfdfshk@gmail.com','2024-07-28 06:15:58','ta la aohk day','$2a$10$gycK6dbHhwwDRD79RzXUCuKpIJEk3FW2w0pmrimaX9jONC8auVoei','aohfddsfsdsk'),(6,'2024-07-28 06:19:18','uno@gmail.com','2024-08-14 00:08:47','ta la uno','$2a$10$QkgC5dIdHmGgdYqg5DhgoOXVBXVpWibeeE9ojU9/knyY./NKEDBKW','uno'),(7,'2024-07-28 09:53:47','a@gmail.com','2024-08-14 07:32:42','string1','$2a$10$lKptgSe3bBOvqswz7V6SGOKcAGNHzG0VjMiITNggvrxkqiV.t/fHG','author1'),(8,'2024-07-28 09:54:02','b@gmail.com','2024-08-14 05:37:45','string2','$2a$10$WF6m/.bvNc9jXyftECOiOuV/L4D.qGvwpsrm34qsAY5IF3t4PgIX6','author2'),(9,'2024-07-28 21:29:37','sa@gmail.com','2024-07-28 21:29:36','sa','$2a$10$fumggJk9ueU5CbW9ceMmCOkUo4rLguQBfOXbiPzVUQJgNHYuh5iMy','sa'),(10,'2024-07-28 21:33:42','s@s','2024-07-28 21:33:42','s','$2a$10$o7/OCT/qgX8SLF..1qQWTO4TDlF8gKqN0bDHz9yC2zLK4zRFztEy2','a'),(11,'2024-07-28 21:37:05','q@q','2024-07-28 21:37:05','q','$2a$10$3UcQ9MrzwBMAGPKPAq9/HOKC3VzVyNFOMPTY3H54LWU2YzaVYNfsW','q'),(12,'2024-07-28 21:40:15','e@gmail.com','2024-07-28 21:40:14','e','$2a$10$/Vb0cKnwMunoYH60kJXlCuCiJ67.EALhd3SQNYvQsgHyOeK8m1kxG','e'),(13,'2024-07-28 21:41:19','w@s','2024-07-28 21:41:19','ư','$2a$10$gRTQP6/fZmPkN/5UKNvgV.YQstWVbw/lFXpDw.wj9j6RdmiDOPJ7.','w'),(14,'2024-07-28 22:11:07','tieubangchu@gmail.com','2024-07-28 22:11:07','Kiều Phong','$2a$10$tHEqpWhUDuCOsN1I0ijV8u7plOGp7WlTmAPGuFP/JROHEHq/RfO9e','kieuphong'),(15,'2024-07-28 22:22:18','nhide@gmail.com','2025-03-19 04:01:56','Đoàn Dự','$2a$10$VVXPQMlLLNZXliz9KxKX3eltjBK.09JYSESO7/wKu8R5tvFRGd0yi','doandu'),(16,'2024-07-28 22:31:28','tamde@gmail.com','2024-10-01 10:31:01','Hư Trúc','$2a$10$EXyi20x2A8D9hQbHkJMvD.CDiuy2TTgmxWfSD7xIYKFxCtROmtfCO','hutruc'),(17,'2024-07-30 22:25:06','ss@ssss','2024-08-02 19:29:25','sssss','$2a$10$M/sX3f3SeD0CEmPFD.Xdz.iE1IpDMPkgCQh6whjQcE64hkwXh0oiu','sssss'),(18,'2024-08-06 17:56:21','thandieudaihiep@gmail.com','2024-08-06 17:56:21','Dương Quá','$2a$10$MKZOpVg3rwFiqHuABvNRlO8GPGWOOb82p1KLitJojQkg87jAct7me','duongqua');
+INSERT INTO `users` VALUES (1,'2024-07-28 06:01:37','admin@gmail.com','2025-03-19 09:06:18','ta la admin day','$2a$10$35WqtcXWAcdzg4Heotn.5uIyZtxIy2sTAWk9kHYvOEkdLNuDQZE/C','admin'),(2,'2024-07-28 06:09:00','aohk@gmail.com','2024-08-14 00:08:28','ta la aohk day','$2a$10$h.kBL5bWOpbHzV/SWrlo9ePiwPOgq18evp6R33AFitVOnBOnQDDSK','aohk'),(3,'2024-07-28 06:11:26','aofsdfsdfdsfsdfdfshk@gmail.com','2024-07-28 06:11:25','ta la aohk day','$2a$10$4PPrt3FSMv7bcfXQk50.U.wTIVJzhji18UEKJrr7rvByXB4uLyJH.','aohfdsfsdk'),(4,'2024-07-28 06:12:20','aofsdfsdfdssfsdfdfshk@gmail.com','2024-07-28 06:12:19','ta la aohk day','$2a$10$4vRX1F.lLBg/wFatv/iAzOJcdvy98v2Y9CsgjeEii8F4m9ymRLef2','aohfdsfsdsk'),(5,'2024-07-28 06:15:59','aofsdfsddfdssfsdfdfshk@gmail.com','2024-07-28 06:15:58','ta la aohk day','$2a$10$gycK6dbHhwwDRD79RzXUCuKpIJEk3FW2w0pmrimaX9jONC8auVoei','aohfddsfsdsk'),(6,'2024-07-28 06:19:18','uno@gmail.com','2024-08-14 00:08:47','ta la uno','$2a$10$QkgC5dIdHmGgdYqg5DhgoOXVBXVpWibeeE9ojU9/knyY./NKEDBKW','uno'),(7,'2024-07-28 09:53:47','a@gmail.com','2024-08-14 07:32:42','string1','$2a$10$lKptgSe3bBOvqswz7V6SGOKcAGNHzG0VjMiITNggvrxkqiV.t/fHG','author1'),(8,'2024-07-28 09:54:02','b@gmail.com','2024-08-14 05:37:45','string2','$2a$10$WF6m/.bvNc9jXyftECOiOuV/L4D.qGvwpsrm34qsAY5IF3t4PgIX6','author2'),(9,'2024-07-28 21:29:37','sa@gmail.com','2024-07-28 21:29:36','sa','$2a$10$fumggJk9ueU5CbW9ceMmCOkUo4rLguQBfOXbiPzVUQJgNHYuh5iMy','sa'),(10,'2024-07-28 21:33:42','s@s','2024-07-28 21:33:42','s','$2a$10$o7/OCT/qgX8SLF..1qQWTO4TDlF8gKqN0bDHz9yC2zLK4zRFztEy2','a'),(11,'2024-07-28 21:37:05','q@q','2024-07-28 21:37:05','q','$2a$10$3UcQ9MrzwBMAGPKPAq9/HOKC3VzVyNFOMPTY3H54LWU2YzaVYNfsW','q'),(12,'2024-07-28 21:40:15','e@gmail.com','2024-07-28 21:40:14','e','$2a$10$/Vb0cKnwMunoYH60kJXlCuCiJ67.EALhd3SQNYvQsgHyOeK8m1kxG','e'),(13,'2024-07-28 21:41:19','w@s','2024-07-28 21:41:19','ư','$2a$10$gRTQP6/fZmPkN/5UKNvgV.YQstWVbw/lFXpDw.wj9j6RdmiDOPJ7.','w'),(14,'2024-07-28 22:11:07','tieubangchu@gmail.com','2024-07-28 22:11:07','Kiều Phong','$2a$10$tHEqpWhUDuCOsN1I0ijV8u7plOGp7WlTmAPGuFP/JROHEHq/RfO9e','kieuphong'),(15,'2024-07-28 22:22:18','nhide@gmail.com','2025-03-19 04:01:56','Đoàn Dự','$2a$10$VVXPQMlLLNZXliz9KxKX3eltjBK.09JYSESO7/wKu8R5tvFRGd0yi','doandu'),(16,'2024-07-28 22:31:28','tamde@gmail.com','2024-10-01 10:31:01','Hư Trúc','$2a$10$EXyi20x2A8D9hQbHkJMvD.CDiuy2TTgmxWfSD7xIYKFxCtROmtfCO','hutruc'),(17,'2024-07-30 22:25:06','ss@ssss','2024-08-02 19:29:25','sssss','$2a$10$M/sX3f3SeD0CEmPFD.Xdz.iE1IpDMPkgCQh6whjQcE64hkwXh0oiu','sssss'),(18,'2024-08-06 17:56:21','thandieudaihiep@gmail.com','2024-08-06 17:56:21','Dương Quá','$2a$10$MKZOpVg3rwFiqHuABvNRlO8GPGWOOb82p1KLitJojQkg87jAct7me','duongqua');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-19 15:33:21
+-- Dump completed on 2025-03-19 16:11:09
