@@ -226,40 +226,63 @@
 .table-of-contents {
   position: fixed;
   top: 100px;
-  left: calc(50% - var(--container-width)/2 - 300px); /* Định vị dựa vào container */
-  width: 280px; /* Chiều rộng ban đầu khi không hover */
+  left: calc(50% - var(--container-width)/2 - 300px);
+  width: 250px;
   max-height: 70vh;
   background-color: #fff;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  overflow: hidden; /* Ẩn phần nội dung tràn */
-  resize: both; /* Cho phép thay đổi kích thước theo cả chiều ngang và dọc */
+  transition: all 0.3s ease;
+  overflow-y: auto;
+}
+
+.table-of-contents:hover {
+  max-height: 90vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .table-of-contents ul {
   list-style: none;
-  padding-left: 0;
-  margin: 0; /* Loại bỏ khoảng cách mặc định */
+  padding: 0;
+  margin: 0;
 }
 
 .table-of-contents li {
-  margin-bottom: 0; /* Loại bỏ margin-bottom nếu sử dụng đường viền */
-  border-bottom: 1px solid #ddd;
+  margin: 5px 0;
 }
 
-/* Loại bỏ đường viền dưới cùng của mục cuối */
-.table-of-contents li:last-child {
-  border-bottom: none;
-}
-
-.table-of-contents li a {
+.table-of-contents a {
+  color: #333;
   text-decoration: none;
-  color: #141414;
-  /* Cho phép xuống dòng khi không hover */
+  font-size: 0.9rem;
+  line-height: 1.4;
+  display: block;
+  padding: 3px 0;
+}
+
+.table-of-contents a:hover {
+  color: #007bff;
+}
+
+/* Tùy chỉnh thanh cuộn */
+.table-of-contents::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-of-contents::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 
